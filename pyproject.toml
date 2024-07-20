@@ -12,6 +12,7 @@ starlette-discord = "^0.2.1"
 pydantic-settings = "^2.3.1"
 discord-py = "<2"
 requests = "^2.32.3"
+gunicorn = "^22.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
