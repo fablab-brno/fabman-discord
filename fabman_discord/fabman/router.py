@@ -53,8 +53,8 @@ async def webhook(key: str, payload: FabmanPayload, response: Response):
     if not stopped_at:
         return {"status": "ignored, resource still running"}
 
-    with open(f"./logs/{payload.id}.json", "w") as file:
-        file.write(payload.model_dump_json())
+    # with open(f"./logs/{payload.id}.json", "w") as file:
+    #     file.write(payload.model_dump_json())
 
     run_time = td_format(
         datetime.strptime(log["createdAt"], "%Y-%m-%dT%H:%M:%S.%fZ")
