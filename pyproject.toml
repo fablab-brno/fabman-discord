@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "fabman-discord"
+version = "0.1.0"
+description = "Discord Bot for FabMan notifications"
+authors = ["Tomáš Ehrlich <tomas.ehrlich@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+starlette-discord = "^0.2.1"
+pydantic-settings = "^2.3.1"
+discord-py = "<2"
+requests = "^2.32.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
+black = "^24.4.2"
+pytest = "^8.3.1"
+pytest-mock = "^3.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
