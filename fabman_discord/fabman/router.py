@@ -2,7 +2,6 @@ from datetime import datetime
 
 from fastapi import APIRouter, Response, status
 from pydantic import BaseModel
-from rich import print
 
 from fabman_discord.bot.api import send_message
 from fabman_discord.dependencies import get_settings
@@ -40,26 +39,14 @@ async def webhook(key: str, payload: FabmanPayload, response: Response):
     resource = details["resource"]
     resource_name = resource["name"]
 
-    is_3d_printer = resource_name.startswith("3D printer") or resource_name.startswith(
-        "3D Prusa"
+    allowed_log_types = ["resourceDisabled", "resourceEnabled"]
+    if log["type"] not in allowed_log_types:
+        return {"status": f"ignored, log type isn't {' or '.join(allowed_log_types)}"}
+
+    resource_status = (
+        "je mimo provoz" if log["type"] == "resourceDisabled" else "je opět funkční"
     )
-    if not is_3d_printer:
-        return {"status": f"ignored, resource isn't 3d printer: {resource_name}"}
 
-    if log["type"] != "allowed":
-        return {"status": "ignored, access not allowed"}
-
-    stopped_at = log["stoppedAt"]
-    if not stopped_at:
-        return {"status": "ignored, resource still running"}
-
-    # with open(f"./logs/{payload.id}.json", "w") as file:
-    #     file.write(payload.model_dump_json())
-
-    run_time = td_format(
-        datetime.strptime(log["createdAt"], "%Y-%m-%dT%H:%M:%S.%fZ")
-        - datetime.strptime(stopped_at, "%Y-%m-%dT%H:%M:%S.%fZ")
-    )
-    message = f"{resource_name} has stopped after {run_time}"
+    message = f"{resource_name} {resource_status}"
     send_message(message)
     return {"status": message}
