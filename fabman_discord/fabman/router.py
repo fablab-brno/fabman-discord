@@ -40,7 +40,9 @@ async def webhook(key: str, payload: FabmanPayload, response: Response):
 
     allowed_log_types = ["resourceDisabled", "resourceEnabled"]
     if log["type"] not in allowed_log_types:
-        return {"status": f"ignored, log type isn't {' or '.join(allowed_log_types)}"}
+        return {
+            "status": f"ignored, log type isn't {' or '.join(allowed_log_types)}: {log['type']}"
+        }
 
     resource_status = (
         "je mimo provoz" if log["type"] == "resourceDisabled" else "je opět funkční"
