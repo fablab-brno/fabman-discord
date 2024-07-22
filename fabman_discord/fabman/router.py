@@ -5,7 +5,6 @@ from pydantic import BaseModel
 
 from fabman_discord.bot.api import send_message
 from fabman_discord.dependencies import get_settings
-from fabman_discord.utils import td_format
 
 router = APIRouter()
 

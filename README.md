@@ -11,6 +11,5 @@ This project uses [`poetry`](https://python-poetry.org/) for dependency manageme
 
 Environment variables:
 
-- `DISCORD__CLIENT_ID`
-- `DISCORD__CLIENT_SECRET`
-- `DISCORD__REDIRECT_URI`
+- `DISCORD__BOT_TOKEN`
+- `DISCORD__BOT_CHANNEL_ID`
