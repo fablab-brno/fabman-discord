@@ -5,7 +5,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class DiscordSettings(BaseModel):
     bot_token: str
-    bot_channel_id: int
 
 
 class Settings(BaseSettings):
