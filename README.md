@@ -11,5 +11,9 @@ This project uses [`poetry`](https://python-poetry.org/) for dependency manageme
 
 Environment variables:
 
-- `DISCORD__BOT_TOKEN`
-- `DISCORD__BOT_CHANNEL_ID`
+- `DISCORD__BOT_TOKEN` - Authentication token for Discord bot.
+- `FABMAN_WEBHOOK_SECRET` - Secret `key` passed in URL query to authenticate webhook calls.
+
+## Deployment
+
+- Python version is set in `pyproject.toml` and `runtime.txt`. These version must match.
