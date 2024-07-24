@@ -44,7 +44,15 @@ def fabman_webhook(details: dict) -> FabmanWebhookResponse:
     else:
         icon = ":white_check_mark:"
 
-    send_message(f"{icon} {message}")
+    try:
+        channel_id = resource.get("metadata").get("DISCORD_CHANNEL_ID")
+    except AttributeError:
+        channel_id = None
+
+    if not channel_id:
+        return FabmanWebhookResponse(status="ignoring, unknown channel id")
+
+    send_message(channel_id, f"{icon} {message}")
     return FabmanWebhookResponse(status=message)
 
 

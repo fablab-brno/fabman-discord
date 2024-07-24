@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Response, status
 
-from fabman_discord.bot.api import send_message
 from fabman_discord.dependencies import get_settings
 from fabman_discord.fabman.webhook import (
     FabmanPayload,
@@ -22,7 +21,6 @@ async def webhook(key: str, payload: FabmanPayload, response: Response):
     details = payload.details
 
     if payload.type == "test":
-        send_message(details["message"])
         return {"status": details["message"]}
 
     return fabman_webhook(details)

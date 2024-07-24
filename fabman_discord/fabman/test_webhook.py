@@ -12,7 +12,6 @@ settings = get_settings()
 
 
 def test_webhook(mocker):
-    mocker.patch("fabman_discord.fabman.router.send_message")
     response = client.post(
         f"/webhook?key={settings.fabman_webhook_secret}",
         json={
@@ -57,7 +56,6 @@ resource_enabled_details = {
         "idleDurationSeconds": None,
         "reason": None,
         "notes": None,
-        "metadata": None,
         "account": 4,
         "originalMember": None,
         "updatedBy": None,
@@ -66,7 +64,12 @@ resource_enabled_details = {
         "extraChargeTaxPercent": None,
         "extraChargeDetails": "",
     },
-    "resource": {"id": 3358, "name": "CNC frézka Jeřábek", "state": "active"},
+    "resource": {
+        "id": 3358,
+        "name": "CNC frézka Jeřábek",
+        "state": "active",
+        "metadata": {"DISCORD_CHANNEL_ID": 42},
+    },
     "member": {},
 }
 
@@ -82,7 +85,6 @@ resource_disabled_details = {
         "idleDurationSeconds": None,
         "reason": None,
         "notes": "<div>Nutné znovu zaměřit trn.</div>",
-        "metadata": None,
         "account": 4,
         "originalMember": None,
         "updatedBy": None,
@@ -91,6 +93,11 @@ resource_disabled_details = {
         "extraChargeTaxPercent": None,
         "extraChargeDetails": "",
     },
-    "resource": {"id": 3358, "name": "CNC frézka Jeřábek", "state": "active"},
+    "resource": {
+        "id": 3358,
+        "name": "CNC frézka Jeřábek",
+        "state": "active",
+        "metadata": {"DISCORD_CHANNEL_ID": 42},
+    },
     "member": {},
 }
