@@ -20,5 +20,3 @@ def send_message(channel_id: str, message: str):
         print(
             f"Message failed to send to {channel_id}: {response.status_code} {response.text}"
         )
-    else:
-        print(response.text)
