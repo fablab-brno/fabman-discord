@@ -5,6 +5,10 @@ import re
 from pydantic import BaseModel
 
 from fabman_discord.bot.api import send_message
+from fabman_discord.dependencies import get_settings
+
+
+settings = get_settings()
 
 
 class FabmanPayload(BaseModel):
@@ -12,6 +16,12 @@ class FabmanPayload(BaseModel):
     type: str
     createdAt: datetime
     details: dict
+
+
+class ErrorInfo(BaseModel):
+    message: str
+    stack: str
+    type: str
 
 
 class FabmanWebhookResponse(BaseModel):
@@ -54,6 +64,15 @@ def fabman_webhook(details: dict) -> FabmanWebhookResponse:
 
     send_message(channel_id, f"{icon} {message}")
     return FabmanWebhookResponse(status=message)
+
+
+def error_handler_fn(payload: ErrorInfo) -> FabmanWebhookResponse:
+    message = f"{payload.type}: {payload.message}\n{payload.stack}"
+    channel_id = settings.error_handler_channel_id
+
+    send_message(channel_id, f":warning: {message}")
+
+    return FabmanWebhookResponse(status="logged")
 
 
 strip_html_re = re.compile("<.*?>")
